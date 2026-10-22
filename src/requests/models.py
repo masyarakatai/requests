@@ -201,6 +201,7 @@ class RequestEncodingMixin:
         files = to_key_val_list(files or {})
 
         for field, val in fields:
+            field = field.decode("utf-8") if isinstance(field, bytes) else str(field)
             if isinstance(val, basestring) or not hasattr(val, "__iter__"):
                 val = [val]
             for v in val:
@@ -219,6 +220,7 @@ class RequestEncodingMixin:
                     )
 
         for k, v in files:
+            k = k.decode("utf-8") if isinstance(k, bytes) else str(k)
             # support for explicit filename
             ft = None
             fh = None
